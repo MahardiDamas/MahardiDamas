@@ -1,0 +1,24 @@
+  <ion-list lines="none">
+    <ion-item>
+      <div class="item_container d-flex">
+        <div class="img_box center_img">
+          <img [src]="photo || 'assets/images/user.png'" class="crop_img">
+        </div>
+        <div class="text_box">
+          <h2>{{'Hi' | translate}}, {{employee?.employee?.fullName}}</h2>
+          <h3>{{ employee?.company?.name }}</h3>
+          <div class="other_details d-flex">
+            <p class="d-flex">
+              {{ employee?.employee?.employeeNo }} <span></span> {{ employee?.jobPosition?.name }}
+            </p>
+            <div class="icon_container">
+              <div class="icon_box">
+                <div class="icon"><img src="assets/images/ic_round_1.png"></div>
+                <div class="icon"><img src="assets/images/ic_round_2.png"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>

@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{'Customer' | translate}}</ion-title>
+	</ion-toolbar>
+
+	<ion-toolbar>
+		<ion-searchbar
+			(ionInput)="filterList($event)"
+		></ion-searchbar>
+	</ion-toolbar>	
+</ion-header>
+
+<ion-content class="bg_color">
+	<ion-list lines="none">
+		<ion-item *ngFor="let item of customerList" (click)="select(item)">
+			<div class="item_container">
+				<div class="notification_details">
+					<h2>{{ item?.customer?.name }}</h2>
+					<h3>{{ item?.customer?.code }} . {{ item?.industrySegment?.name }}</h3>
+					<h3>{{ item?.customer?.address }}</h3>
+				</div>
+				<ion-row>
+					<ion-col size="6">
+						<h6>{{ item?.customer?.phone1 }}</h6>
+					</ion-col>
+
+					<ion-col class="ion-text-end" >
+						<h6>{{ item?.customer?.email }}</h6>
+					</ion-col>
+				</ion-row>
+			</div>
+		</ion-item>
+	</ion-list>
+
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event, false)">
+        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+        </ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

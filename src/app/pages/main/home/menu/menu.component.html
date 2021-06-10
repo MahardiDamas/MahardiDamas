@@ -1,0 +1,6 @@
+<div class="menu_item" [ngClass]="{'menu_item_disabled': !isGranted}">
+  <div class="img_box" (click)="goToPage(route, title, isGranted)">
+    <img [src]="getIcon(icon)">
+  </div>
+  <h2 class="ion-text-center">{{ title | translate}}</h2>
+</div>

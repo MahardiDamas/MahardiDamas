@@ -1,0 +1,25 @@
+.scroll_container {
+	width: 100%;
+	overflow-x: scroll;
+	white-space: nowrap;
+	margin-bottom: 10px;
+
+	.item_srcoll {
+		display: inline-block;
+		margin: 0 5px;
+
+		.img_box {
+			width: 330px;
+			height: 120px;
+			border-radius: 10px;
+		}
+
+		&:first-child {
+			margin-left: 15px;
+		}
+
+		&:last-child {
+			margin-right: 15px;
+		}
+	}
+}

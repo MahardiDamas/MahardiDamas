@@ -1,0 +1,166 @@
+<ion-item>
+	<ion-label position="stacked">{{'date_start' | translate}}</ion-label>
+	<ion-datetime displayFormat="DD MMM YYYY" [min]="minDate" [max]="maxDate"
+		(ionChange)="changeDateStart($event.target.value)" placeholder="{{'activity_datePlan' | translate}}"
+		[(ngModel)]="filters.startDate"></ion-datetime>
+	<ion-icon class="zmdi zmdi-calendar-alt ion-text-end" slot="end"></ion-icon>
+</ion-item>
+<ion-item>
+	<ion-label position="stacked">{{'date_end' | translate}}</ion-label>
+	<ion-datetime displayFormat="DD MMM YYYY" [min]="minDate" [max]="maxDate"
+		(ionChange)="changeDateEnd($event.target.value)" placeholder="{{'activity_datePlan' | translate}}"
+		[(ngModel)]="filters.endDate"></ion-datetime>
+	<ion-icon class="zmdi zmdi-calendar-alt ion-text-end" slot="end"></ion-icon>
+</ion-item>
+<ion-item>
+	<div class="ion-margin-vertical">
+		<ion-button class="btn" (click)="refresh()">{{ 'refresh' | translate}}</ion-button>
+	</div>	
+</ion-item>
+<ion-list lines="none">	
+	<ion-item >
+		<div class="item_container">
+			<div class="notification_details">
+				<h2>Overview By Customer</h2>
+			</div>
+			<ion-row>
+				<ion-col size="6">
+					<h6>Customer</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>Total</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>Ratio</h6>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item of salesActivityByCustomer?.items">
+				<ion-col size="6">
+					<h6>{{ item?.name }}</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>{{ item?.count }}</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>{{ percentage(item.count, salesActivityByCustomer.totalCount) }}</h6>
+				</ion-col>
+			</ion-row>
+		</div>
+	</ion-item>
+</ion-list>
+
+<ion-list lines="none">	
+	<ion-item >
+		<div class="item_container">
+			<div class="notification_details">
+				<h2>Overview By Customer Segment</h2>
+			</div>
+			<ion-row>
+				<ion-col size="6">
+					<h6>Segment</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>Total</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>Ratio</h6>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item of salesActivityByCustomerSegment?.items">
+				<ion-col size="6">
+					<h6>{{ item?.name }}</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>{{ item?.count }}</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>{{ percentage(item.count, salesActivityByCustomerSegment.totalCount) }}</h6>
+				</ion-col>
+			</ion-row>
+		</div>
+	</ion-item>
+</ion-list>
+
+<ion-list lines="none">	
+	<ion-item >
+		<div class="item_container">
+			<div class="notification_details">
+				<h2>Overview By Type</h2>
+			</div>
+			<ion-row>
+				<ion-col size="6">
+					<h6>Type</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>Total</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>Ratio</h6>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item of salesActivityByType?.items">
+				<ion-col size="6">
+					<h6>{{ item?.name }}</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>{{ item?.count }}</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>{{ percentage(item.count, salesActivityByType.totalCount) }}</h6>
+				</ion-col>
+			</ion-row>
+		</div>
+	</ion-item>
+</ion-list>
+
+<ion-list lines="none">	
+	<ion-item >
+		<div class="item_container">
+			<div class="notification_details">
+				<h2>Overview By Status</h2>
+			</div>
+			<ion-row>
+				<ion-col size="6">
+					<h6>Status</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>Total</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>Ratio</h6>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item of salesActivityByStatus?.items">
+				<ion-col size="6">
+					<h6>{{ item?.name }}</h6>
+				</ion-col>
+				<ion-col size="3" >
+					<h6>{{ item?.count }}</h6>
+				</ion-col>
+				<ion-col class="ion-text-end" >
+					<h6>{{ percentage(item.count, salesActivityByStatus.totalCount) }}</h6>
+				</ion-col>
+			</ion-row>
+		</div>
+	</ion-item>
+</ion-list>
+
+<ion-list lines="none">	
+	<ion-item >
+		<div class="item_container">
+			<div class="notification_details">
+				<h2>Overview By Avg Total Time</h2>
+			</div>
+			<ion-row>
+				<ion-col size="12">
+					<h6>Avg Total Time (in minutes)</h6>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col class="ion-text-center" >
+					<h2>{{ salesActivityByAvgTotalTime.totalCount }}</h2>
+				</ion-col>
+			</ion-row>
+		</div>
+	</ion-item>
+</ion-list>

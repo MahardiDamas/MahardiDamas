@@ -1,0 +1,180 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-buttons slot="primary">
+			<ion-button (click)="switchView()">
+			  <ion-icon slot="icon-only" name="{{ isActivity ? 'reader' : 'person' }}"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+		<ion-title>{{'Sales Activity' | translate}} </ion-title>
+	</ion-toolbar>
+	
+	<ion-toolbar>
+		<ion-searchbar
+			(ionInput)="filterList($event)"
+		></ion-searchbar>
+	</ion-toolbar>	
+
+	<ion-segment color="primary" [(ngModel)]="activity" scrollable *ngIf="isActivity">
+		<ion-segment-button value="today" (click)="getActivityToday()">
+			<ion-label>{{'activity_today' | translate}}</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="plan" (click)="getActivityPlan()">
+		  	<ion-label>{{'activity_plan' | translate}}</ion-label>
+		</ion-segment-button>	
+		<ion-segment-button value="history" (click)="getActivityHistory()">
+			<ion-label>{{'activity_history' | translate}}</ion-label>
+	  </ion-segment-button>	
+	</ion-segment>
+
+	<ion-segment color="primary" [(ngModel)]="master" scrollable *ngIf="!isActivity">
+		<ion-segment-button value="sales-person" (click)="getSalesPerson()">
+			<ion-label>{{'activity_sales_person' | translate}}</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="customer" (click)="getMasterCustomer()">
+		  	<ion-label>{{'activity_customer' | translate}}</ion-label>
+		</ion-segment-button>		
+	</ion-segment>
+</ion-header>
+
+<ion-content class="bg_color">
+	<div [ngSwitch]="activity" *ngIf="isActivity">
+		<ion-list lines="none" *ngSwitchCase="'today'">
+			<ion-item *ngFor="let item of activityTodayList">
+				<div class="item_container">
+					<div class="notification_details" (click)="editActivity(item)">
+						<h3>{{  item?.salesActivity.number }}</h3>
+						<h2>{{ item?.salesActivity.title }}</h2>
+						<h3>d: {{ item?.salesActivity.description }}</h3>
+						<h3 *ngIf="item?.salesActivity.remarks !== null">r: {{ item?.salesActivity.remarks }}</h3>
+					</div>
+					<ion-row>
+						<ion-col size="6">
+							<h4>{{ item?.employee.fullName }}</h4>
+						</ion-col>
+						<ion-col class="ion-text-end" >
+							<h6>{{ (item?.salesActivity.checkinTime 
+								? item?.salesActivity.checkinTime : item?.salesActivity.planDateTime) | date: 'HH:mm' }}</h6>
+						</ion-col>
+					</ion-row>
+					<div class="ion-padding" *ngIf="item.salesActivity.checkInPhoto === null 
+					&& item.employee.id === employee.employee.id">
+						<ion-button class="btn" (click)="checkIn(item)">{{(item.salesActivity.checkinTime === null 
+							? 'Check In' : 'Photo In') | translate}}</ion-button>
+					</div>	
+					<div class="ion-padding" *ngIf="item.salesActivity.checkInPhoto !== null 
+						&& item.salesActivity.checkOutPhoto === null 
+						&& item.employee.id === employee.employee.id">
+						<ion-button class="btn" (click)="checkOut(item)">{{(item.salesActivity.checkOutTime === null 
+							? 'Check Out' : 'Photo Out') | translate}}</ion-button>
+					</div>				
+				</div>
+			</ion-item>
+		</ion-list>
+		<ion-list lines="none" *ngSwitchCase="'plan'">
+			<ion-item *ngFor="let item of activityPlanList">
+				<div class="item_container">
+					<div class="notification_details" (click)="editActivity(item)">
+						<h3>{{  item?.salesActivity.number }}</h3>
+						<h2>{{ item?.salesActivity.title }}</h2>
+						<h3>d: {{ item?.salesActivity.description }}</h3>
+					</div>
+					<ion-row>
+						<ion-col size="6">
+							<h4>{{ item?.employee.fullName }}</h4>
+						</ion-col>
+						<ion-col class="ion-text-end" >
+							<h6>{{ item?.salesActivity.planDateTime  | date: 'dd MMM yyyy, HH:mm'  }}</h6>
+						</ion-col>
+					</ion-row>		
+				</div>
+			</ion-item>
+		</ion-list>
+		<ion-list lines="none" *ngSwitchCase="'history'">
+			<ion-item *ngFor="let item of activityHistoryList">
+				<div class="item_container">
+					<div class="notification_details" (click)="editActivity(item)">
+						<h3>{{  item?.salesActivity.number }}</h3>
+						<h2>{{ item?.salesActivity.title }}</h2>
+						<h3>d: {{ item?.salesActivity.description }}</h3>
+						<h3>r: {{ item?.salesActivity.remarks }}</h3>
+					</div>
+					<ion-row>
+						<ion-col size="6">
+							<h4>{{ item?.employee.fullName }}</h4>
+						</ion-col>
+						<ion-col class="ion-text-end" >
+							<h6>{{ item?.salesActivity.checkinTime | date: 'dd MMM yyyy, HH:mm' }}</h6>
+						</ion-col>
+					</ion-row>
+				</div>
+			</ion-item>
+		</ion-list>
+	</div>
+	<div [ngSwitch]="master" *ngIf="!isActivity">
+		<ion-list lines="none" *ngSwitchCase="'sales-person'">
+			<ion-item *ngFor="let item of salesPersonList">
+				<div class="item_container">
+					<div class="notification_details">
+						<h2>{{ item?.employee?.fullName }}</h2>
+						<h3>{{ item?.salesPerson?.number }}</h3>
+						<h3>{{ item?.company?.name }}</h3>
+					</div>
+					<ion-row>
+						<ion-col size="6">
+							<h6>{{ item?.employee?.phone }}</h6>
+						</ion-col>
+	
+						<ion-col class="ion-text-end" >
+							<h6>{{ item?.employee?.email }}</h6>
+						</ion-col>
+	
+						<ion-col class="ion-text-end" (click)="editSalesPerson(item)">
+							<h5>{{'overview' | translate}}</h5>
+						</ion-col>
+					</ion-row>
+				</div>
+			</ion-item>
+		</ion-list>
+		<ion-list lines="none" *ngSwitchCase="'customer'">
+			<ion-item *ngFor="let item of customerList" (click)="editCustomer(item)">
+				<div class="item_container">
+					<div class="notification_details">
+						<h2>{{ item?.customer?.name }}</h2>
+						<h3>{{ item?.customer?.code }} . {{ item?.customerSegment?.name }}</h3>												
+						<h3>a: {{ item?.customer?.address }}</h3>
+					</div>
+					<ion-row>
+						<ion-col size="6">
+							<h6>{{ item?.customer?.phone1 }}</h6>
+						</ion-col>
+	
+						<ion-col class="ion-text-end" >
+							<h6>{{ item?.customer?.email }}</h6>
+						</ion-col>
+	
+						<!-- <ion-col class="ion-text-end" >
+							<h5>{{'approve' | translate}}</h5>
+						</ion-col> -->
+					</ion-row>
+				</div>
+			</ion-item>
+		</ion-list>
+	</div>	
+
+	<ion-fab *ngIf="isActivity || !isActivity && master == 'customer'"
+		vertical="bottom" horizontal="end" slot="fixed" 
+		(click)="add(isActivity)">
+		<ion-fab-button>
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event, false)">
+        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+        </ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+
+</ion-content>

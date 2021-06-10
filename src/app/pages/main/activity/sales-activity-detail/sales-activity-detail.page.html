@@ -1,0 +1,161 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ title | translate}} </ion-title>
+	  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<form [formGroup]="form">
+		<div class="form">
+			<ion-list lines="none">
+				<ion-item>
+					<ion-label position="stacked">{{'activity_datePlan' | translate}}</ion-label>
+					<ion-datetime displayFormat="DD MMM YYYY - H:mm" [min]="minDate" [max]="maxDate"
+						(ionChange)="changeDateStart($event.target.value)" placeholder="{{'activity_datePlan' | translate}}"
+						formControlName="planDateTime"></ion-datetime>
+					<ion-icon class="zmdi zmdi-calendar-alt ion-text-end" slot="end"></ion-icon>
+				</ion-item>
+
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'activity_title' | translate}}</ion-label>
+					<ion-input type="text" formControlName="title"></ion-input>
+				</ion-item>
+	
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'activity_description' | translate}}</ion-label>
+					<ion-textarea rows="3" formControlName="description" placeholder="Enter description here..."></ion-textarea>
+				</ion-item>	
+				
+				<ion-item lines="none" class="m-b-none" *ngIf="activityCategoryList && activityCategoryList.totalCount > 0">
+					<ion-label position="stacked">{{'activity_activityCategory' | translate}}</ion-label>
+					<ion-select placeholder="Select Activity Category" formControlName="activityCategoryId" (ionChange)="activityCategoryChange($event)">
+					  <ion-select-option [value]="item.id" *ngFor="let item of activityCategoryList.items">{{ item.displayName }}</ion-select-option>
+					</ion-select>
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none" *ngIf="activityTypeList && activityTypeList.totalCount > 0">
+					<ion-label position="stacked">{{'activity_activityType' | translate}}</ion-label>
+					<ion-select placeholder="Select Activity Type" formControlName="activityTypeId" (ionChange)="activityTypeChange($event)">
+					  <ion-select-option [value]="item.id" *ngFor="let item of activityTypeList.items">{{ item.displayName }}</ion-select-option>
+					</ion-select>
+				</ion-item>				
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'activity_customer' | translate}}</ion-label>
+						<ion-button expand="block" fill="clear" size="large" (click)="selectCustomer()">
+							{{ selected == null && selectedCustomer == null 
+								? ('activity_select_customer' | translate) 
+								: selectedCustomer != null ? selectedCustomer?.name
+								: selected?.customer?.customer?.name }}
+						</ion-button>												 
+				</ion-item>
+				
+				<span *ngIf="selectedCustomer !== null 
+					|| selected?.customer?.customer !== null">
+					<ion-item lines="none">
+						<ion-label position="stacked">{{'activity_picName' | translate}}</ion-label>
+						<ion-input type="text" formControlName="custPicName"></ion-input>
+					</ion-item>
+	
+					<ion-item lines="none">
+						<ion-label position="stacked">{{'activity_picJabatan' | translate}}</ion-label>
+						<ion-input type="text" formControlName="custPicTitle"></ion-input>
+					</ion-item>
+	
+					<ion-item lines="none">
+						<ion-label position="stacked">{{'activity_picTelp1' | translate}}</ion-label>
+						<ion-input type="text" formControlName="custPicPhone1"></ion-input>
+					</ion-item>
+	
+					<ion-item lines="none">
+						<ion-label position="stacked">{{'activity_picTelp2' | translate}}</ion-label>
+						<ion-input type="text" formControlName="custPicPhone2"></ion-input>
+					</ion-item>
+	
+					<ion-item lines="none">
+						<ion-label position="stacked">{{'activity_picEmail' | translate}}</ion-label>
+						<ion-input type="text" formControlName="custPicEmail"></ion-input>
+					</ion-item>
+
+					<span *ngIf="selected?.salesActivity.checkOutTime !== null">
+						<ion-item lines="none">
+							<ion-label position="stacked">{{'activity_remarks' | translate}}</ion-label>
+							<ion-textarea rows="3" formControlName="remarks" placeholder="Enter remarks here..."></ion-textarea>
+						</ion-item>	
+	
+						<ion-item lines="none" class="m-b-none" *ngIf="activityStatusList && activityStatusList.totalCount > 0">
+							<ion-label position="stacked">{{'activity_activityStatus' | translate}}</ion-label>
+							<ion-select placeholder="Select Activity Status" formControlName="activityStatusId" (ionChange)="activityStatusChange($event)">
+							  <ion-select-option [value]="item.id" *ngFor="let item of activityStatusList.items">{{ item.displayName }}</ion-select-option>
+							</ion-select>
+						</ion-item>
+
+						<!-- <ion-item>
+							<ion-label>Create Next Plan</ion-label>
+							<ion-toggle formControlName="isCreateAsNextPlan" type="checkbox"
+							(ionChange)="isCreateAsNextPlan($event)"></ion-toggle>
+						</ion-item> -->
+
+						<ion-list-header>
+							<ion-label>Next Activity Plan</ion-label>
+						</ion-list-header>
+
+						<ion-item lines="none" class="m-b-none" *ngIf="activityTypeList && activityTypeList.totalCount > 0">
+							<ion-label position="stacked">{{'activity_activityType_Next' | translate}}</ion-label>
+							<ion-select placeholder="Select Activity Type" formControlName="nextActivityTypeId" (ionChange)="activityTypeChange($event)">
+							  <ion-select-option [value]="item.id" *ngFor="let item of activityTypeList.items">{{ item.displayName }}</ion-select-option>
+							</ion-select>
+						</ion-item>	
+
+						<ion-item>
+							<ion-label position="stacked">{{'activity_datePlan' | translate}}</ion-label>
+							<ion-datetime displayFormat="DD MMM YYYY - H:mm" [min]="minDate" [max]="maxDate"
+								(ionChange)="changeDateStart($event.target.value)" placeholder="{{'activity_datePlan' | translate}}"
+								formControlName="nextActivityDate"></ion-datetime>
+							<ion-icon class="zmdi zmdi-calendar-alt ion-text-end" slot="end"></ion-icon>
+						</ion-item>						
+					</span>					
+				</span>				
+				
+			</ion-list>			
+		</div>
+	</form>
+
+	  <ion-card *ngIf="selected?.salesActivity.checkinTime !== null">
+		<ion-item>
+		  <ion-icon name="pin" slot="start"></ion-icon>
+		  <ion-label>{{ selected.salesActivity.checkinTime | date : 'dd MMM yyy hh:mm' }}</ion-label>
+		  <ion-button fill="clear" slot="end" (click)="locationIn(selected)">
+			  <ion-icon slot="icon-only" name="{{  selected?.salesActivity.checkInLocation !== null ? 'map-outline' : 'locate-outline' }}"></ion-icon>
+			</ion-button>
+		</ion-item>
+		<img [src]="checkInPhoto || '/assets/images/place-holder-350.png'" 
+			(click)="showImage(selected?.salesActivity.checkInPhoto, true)"/>
+		<ion-card-content>
+		  {{ selected?.salesActivity.checkInLocation }}
+		</ion-card-content>
+	  </ion-card>
+
+	  <ion-card *ngIf="selected?.salesActivity.checkOutTime !== null">
+		<ion-item>
+		  <ion-icon name="pin" slot="start"></ion-icon>
+		  <ion-label>{{ selected.salesActivity.checkOutTime | date : 'dd MMM yyy hh:mm' }}</ion-label>
+		  <ion-button fill="clear" slot="end" (click)="locationOut(selected)">
+			  <ion-icon slot="icon-only" name="{{ selected?.salesActivity.checkOutLocation !== null ? 'map-outline' : 'locate-outline' }}"></ion-icon>
+			</ion-button>
+		</ion-item>
+		<img [src]="checkOutPhoto || '/assets/images/place-holder-350.png'" 
+			(click)="showImage(selected?.salesActivity.checkOutPhoto, false)"/>
+		<ion-card-content>
+		  {{ selected?.salesActivity.checkOutLocation }}
+		</ion-card-content>
+	  </ion-card>
+
+</ion-content>
+
+<ion-footer class="ion-no-border ion-padding">
+	<ion-button size="large" class="btn" [disabled]="!form.valid" (click)="create()">{{ selected == null ? 'Create' : 'Save'}}</ion-button>
+</ion-footer>

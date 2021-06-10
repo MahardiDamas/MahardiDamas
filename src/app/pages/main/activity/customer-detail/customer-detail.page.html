@@ -1,0 +1,105 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ title | translate}} </ion-title>
+	  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<form [formGroup]="form">
+		<div class="form">
+			<ion-list lines="none">
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'customer_code' | translate}}</ion-label>
+					<ion-input formControlName="code"></ion-input>
+				</ion-item>
+	
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'customer_name' | translate}}</ion-label>
+					<ion-input type="text" formControlName="name"></ion-input>
+				</ion-item>
+
+				<ion-item lines="none" class="m-b-none" *ngIf="customerTypeList.totalCount > 0">
+					<ion-label position="stacked">{{'customer_customerType' | translate}}</ion-label>
+					<ion-select placeholder="Select Segment" formControlName="customerTypeId">
+					  <ion-select-option [value]="item.id" *ngFor="let item of customerTypeList.items">{{ item.displayName }}</ion-select-option>
+					</ion-select>
+				</ion-item>
+
+				<ion-item lines="none" class="m-b-none" *ngIf="customerSegmentList.totalCount > 0">
+					<ion-label position="stacked">{{'customer_industrySegmentId' | translate}}</ion-label>
+					<ion-select placeholder="Select Segment" formControlName="customerSegmentId">
+					  <ion-select-option [value]="item.id" *ngFor="let item of customerSegmentList.items">{{ item.displayName }}</ion-select-option>
+					</ion-select>
+				</ion-item>
+	
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'customer_address' | translate}}</ion-label>
+					<ion-input type="text" formControlName="address"></ion-input>
+				</ion-item>
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_country' | translate}}</ion-label>
+					<ion-input type="text" formControlName="country"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_province' | translate}}</ion-label>
+					<ion-input type="text" formControlName="province"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_city' | translate}}</ion-label>
+					<ion-input type="text" formControlName="city"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_disctrict' | translate}}</ion-label>
+					<ion-input type="text" formControlName="district"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_village' | translate}}</ion-label>
+					<ion-input type="text" formControlName="village"></ion-input>					
+				</ion-item>	
+
+				 <ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_phone1' | translate}}</ion-label>
+					<ion-input type="text" formControlName="phone1"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_phone2' | translate}}</ion-label>
+					<ion-input type="text" formControlName="phone2"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_email' | translate}}</ion-label>
+					<ion-input type="text" formControlName="email"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_pic' | translate}}</ion-label>
+					<ion-input type="text" formControlName="pic"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_picPhone' | translate}}</ion-label>
+					<ion-input type="text" formControlName="picPhone"></ion-input>					
+				</ion-item>	
+
+				<ion-item lines="none" class="m-b-none">
+					<ion-label position="stacked">{{'customer_picEmail' | translate}}</ion-label>
+					<ion-input type="text" formControlName="picEmail"></ion-input>					
+				</ion-item>
+			</ion-list>			
+		</div>
+	</form>
+
+</ion-content>
+
+<ion-footer class="ion-no-border ion-padding">
+	<ion-button size="large" class="btn" [disabled]="!form.valid" (click)="create()">{{ selected !== null ? 'Save' : 'Create'}}</ion-button>
+</ion-footer>

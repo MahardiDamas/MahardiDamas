@@ -1,0 +1,42 @@
+<ion-header class="bg_transparent">
+	<div class="banner ion-text-center">
+		<img src="assets/images/logo.png" width="100px">		
+	</div>
+	<diV class=ion-text-center>
+		<ion-chip *ngIf="tenantMessage || loginMessage" color="danger">
+			<ion-label>{{ tenantMessage }} {{ loginMessage }}</ion-label>
+		</ion-chip>
+	</diV>
+</ion-header>
+
+<ion-content fullscreen class="bg_img">
+	<form [formGroup]="formLogin">
+		<div class="form">
+			<ion-list lines="none">
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'tenantName' | translate}}</ion-label>
+					<ion-input placeholder="{{'enter_tenantName' | translate}}" type="text" formControlName="tenantName"></ion-input>
+				</ion-item>	
+
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'username' | translate}}</ion-label>
+					<ion-input placeholder="{{'enter_username' | translate}}" type="email" formControlName="username"></ion-input>
+				</ion-item>
+	
+				<ion-item lines="none">
+					<ion-label position="stacked">{{'password' | translate}}</ion-label>
+					<ion-input placeholder="{{'enter_password' | translate}}" type="password" formControlName="password"></ion-input>
+				</ion-item>
+
+				<div class="ion-padding ion-text-center" style="position: relative; top: -30px;">
+					<p class="ion-text-end" (click)="forgotPassword()" style="color: #FDB915;">Forgot password ?</p>
+					<ion-button size="large" class="btn block"  [disabled]="!formLogin.valid" (click)="login()">{{ 'login'| translate}}</ion-button>
+				</div>
+			</ion-list>
+		</div>
+	</form>	
+</ion-content>
+
+<!-- <ion-footer no-border>
+	<h6 class=ion-text-center>{{'copy_right' | translate}}</h6>	
+</ion-footer> -->

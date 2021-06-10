@@ -1,0 +1,110 @@
+<ion-header class="bg_primary">
+	<ion-toolbar>
+		<ion-title>
+			<img src="assets/images/logo_header.png">
+		</ion-title>
+		<ion-buttons slot="primary" (click)="goToPage('release')">
+			<ion-button fill="clear">
+			  {{ release[0]?.version }}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<div>
+		<ion-row>
+			<ion-col size="12">
+				<app-profile [employee]="employee"></app-profile>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-header>
+
+<ion-content class="bg_color">
+
+	<div class="menu_container">
+		<ion-row>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/human-resources/attendance'" 
+					[icon]="'ic_nearby.png'" 
+					[title]="'Attendance'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.EmployeeAttendances.Create-'">
+				</app-menu>
+			</ion-col>			
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/human-resources/overtime'" 
+					[icon]="'ic_overtime.png'" 
+					[title]="'Overtime'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.EmployeeOvertimes.Create-'">
+				</app-menu>
+			</ion-col>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/human-resources/leave'" 
+					[icon]="'ic_directory.png'" 
+					[title]="'Leave'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.EmployeeLeaves.Create-'">
+				</app-menu>
+			</ion-col>			
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/human-resources/recognition'" 
+					[icon]="'ic_temperature.png'" 
+					[title]="'body_temperature'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.EmployeeAttendances.Create-'">
+				</app-menu>
+			</ion-col>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/human-resources/payroll'" 
+					[icon]="'ic_payroll.png'" 
+					[title]="'payroll'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.EmployeePayrolls.Read-'">
+				</app-menu>
+			</ion-col>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./page/about'" 
+					[icon]="'ic_blood.png'" 
+					[title]="'benefit'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="''">
+				</app-menu>
+			</ion-col>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./page/about'" 
+					[icon]="'ic_blog.png'" 
+					[title]="'course'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="''">
+				</app-menu>
+			</ion-col>			
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./page/about'" 
+					[icon]="'ic_announcement.png'" 
+					[title]="'announcement'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="''">
+				</app-menu>
+			</ion-col>
+			<ion-col size="4">
+				<app-menu 
+					[route]="'./main/activity/sales-activity'" 
+					[icon]="'ic_shareapp.png'" 
+					[title]="'activity'"
+					[grantedPolicies]="grantedPolicies"
+					[permission]="'CORE.SalesActivities.Create'">
+				</app-menu>
+			</ion-col>
+		</ion-row>
+		<app-banner></app-banner>
+	</div>
+	
+</ion-content>

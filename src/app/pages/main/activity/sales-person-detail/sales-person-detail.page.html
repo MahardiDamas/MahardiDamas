@@ -1,0 +1,12 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ title | translate}} </ion-title>
+	  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg_color">
+	<app-sales-activity-overview [salesPerson]="selected"></app-sales-activity-overview>
+</ion-content>

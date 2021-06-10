@@ -1,0 +1,25 @@
+.menu_item {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 27px 10px 15px 10px;
+    box-shadow: -1px 17px 35px -10px rgba(158, 158, 158, 0.6);
+
+    .img_box {
+        margin: 0 auto;
+        width: 51px;
+        margin-bottom: 14px;
+    }
+
+    h2 {
+        margin: 0;
+        color: var(--text-dark);
+        font-size: .68rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+.menu_item_disabled {
+	filter: grayscale(1);	
+}
