@@ -3,6 +3,8 @@ workflows:
     name: iOS workflow
     environment:
       vars:
+        XCODE_WORKSPACE: "platforms/ios/YOUR_APP.xcworkspace" # <- Update with your workspace name
+        XCODE_SCHEME: "YOUR_SCHEME" # <- Update with your workspace scheme
         XCODE_WORKSPACE: "platforms/ios/HelloCordova.xcworkspace" # <-- Put the name of your workspace here.
         XCODE_SCHEME: "HelloCordova" # <-- Put the name of your scheme here.
         APP_STORE_CONNECT_ISSUER_ID: Encrypted(Z0FBQUFBQmd3WDJvN3JEajlKUnZ0NlFPUUV3aUR0enczbFhkQ0R6MTAyM01CSnppcFNtWDhiNUQ0eTJTdDRVVS13LUluR1N6RHhDMWh3c05yUWZ1dUwwZDZ4ZElEWGZ6ZmJDUnVYSXBWblRIbThmTmdBUVdPSXdoT2wxZ01HNGliTzBYbkg2MEJfWXI=)# <-- Put your App Store Connect Issuer Id here
@@ -58,7 +60,7 @@ workflows:
                 }
               }
           EOF
-          ionic cordova build ios --release 
+          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" 
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log           
