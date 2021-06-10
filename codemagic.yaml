@@ -29,8 +29,8 @@ workflows:
           ionic info   
       - name: Setup iOS
         script: |
-          ionic cordova platform remove ios --nosave
-          ionic cordova platform add ios --confirm --no-interactive --noresources --save  
+          ionic cordova platform remove ios
+          ionic cordova platform add ios 
       
             
       - name: Set up code signing settings on Xcode project
