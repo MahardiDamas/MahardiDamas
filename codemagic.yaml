@@ -29,5 +29,4 @@ workflows:
           ionic cordova build ios --prod
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-© 2021 GitHub, Inc.
+      - /tmp/xcodebuild_logs/*.lo
