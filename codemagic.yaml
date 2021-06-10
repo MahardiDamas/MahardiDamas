@@ -5,8 +5,6 @@ workflows:
       vars:
         XCODE_WORKSPACE: "platforms/ios/YOUR_APP.xcworkspace" # <- Update with your workspace name
         XCODE_SCHEME: "YOUR_SCHEME" # <- Update with your workspace scheme
-        XCODE_WORKSPACE: "platforms/ios/HelloCordova.xcworkspace" # <-- Put the name of your workspace here.
-        XCODE_SCHEME: "HelloCordova" # <-- Put the name of your scheme here.
         APP_STORE_CONNECT_ISSUER_ID: Encrypted(Z0FBQUFBQmd3WDJvN3JEajlKUnZ0NlFPUUV3aUR0enczbFhkQ0R6MTAyM01CSnppcFNtWDhiNUQ0eTJTdDRVVS13LUluR1N6RHhDMWh3c05yUWZ1dUwwZDZ4ZElEWGZ6ZmJDUnVYSXBWblRIbThmTmdBUVdPSXdoT2wxZ01HNGliTzBYbkg2MEJfWXI=)# <-- Put your App Store Connect Issuer Id here
         APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(Z0FBQUFBQmd3WDNaRnoySkRXTHg0WFhLeUt3X3lScUFzSW1jeVh5WU94NjFhQ2pnZzc1aVlpSmlrVVVmc0ZBYzRRdWR4cVg3SndETTE4MWU5MXJKWndDcjFNTFdhbGx3QkE9PQ==) # <-- Put your App Store Connect Key Identifier here
         APP_STORE_CONNECT_PRIVATE_KEY: Encrypted(Z0FBQUFBQmd3WDRFOUpEQkdtN3MtOFV1Qjk3a0xRM2J0U0JxNFlVSmlSRmZPd2ZqUVFXOXVSeDJERnFnWmxrYkNER0lyMTdCNERMMFoxaHlEQkQwd3hVMkhPTXpHMHA3SnFmNWxsbUo1NlMtYmY3TVNHUUxIUnFXOVl1WXJsM3dCcmw2NGVyZDZiM2xhZjdLbURwc19BTVRIT2NRemJZaFJmR3RHY2ppSHlZOTVSOXVYZ1NQb0dkaGlrOV9HaGs1bkNFUk5jV2FUaFU1MW1WZGhlTk5jeExZSVNhNGNGTjFxLWtXUnZoZ19jN0k4b00tSzdtck1UMVEwQ0NNUTZBNkJoS2lBeVRjVWxaRFN1OVAwSXBtZHRObUxXdzhjWGw4ckhqeUduS3dtd3lWV1RNdjZXY0Zsb0RnbXlDZTZMTVV0NC1HcVA3a3dFS2RPUHBXeW1nSXBkOXRRUFI5TnNQel9XR2RVS2pSLWREd0JxdUhWYnlRSGZnTVY3V3EwUURXVFZaejRObmZRSjZYSlZuUFU2QVhkcXdTYkxxb3NneFRmbEZVQmVWWGNqZkVDb01HWGF6Q3puTT0=) # <-- Put your App Store Connect Private Key here
@@ -21,18 +19,24 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npm install
+          npm ci --quiet --no-optional
+          npm install --quiet --no-optional
+          security list-keychains -d user
+          npm run build
           npm ci
           cvm install 10.0.0
           cvm use 10.0.0
           npm install -g ionic
           ionic info   
+      - name: Devlopy
+        script: |
+          
+          ionic deploy manifest
       - name: Setup iOS
         script: |
-          ionic cordova platform remove ios
+          
           ionic cordova platform add ios 
-      
-            
+                  
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -56,7 +60,7 @@ workflows:
                 }
               }
           EOF
-          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" 
+          ionic cordova buidl ios --release
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log           
