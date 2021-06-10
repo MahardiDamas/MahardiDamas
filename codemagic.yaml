@@ -62,7 +62,7 @@ workflows:
           EOF
           ionic cordova build ios --release
     artifacts:
-      - /Users/builder/clone/platforms/ios/build/device/*.ipa
+      - /Users/builder/clone/platforms/ios/build/device/*.app
       - /tmp/xcodebuild_logs/*.log           
    
       
