@@ -2,10 +2,19 @@ workflows:
   ios-workflow:
     name: iOS workflow
     environment:
-     
+      vars:
+        XCODE_WORKSPACE: "platforms/ios/HelloCordova.xcworkspace" # <-- Put the name of your workspace here.
+        XCODE_SCHEME: "HelloCordova" # <-- Put the name of your scheme here.
+        APP_STORE_CONNECT_ISSUER_ID: Encrypted(Z0FBQUFBQmd2WjNTU0RwcWhaczhLX3lDM1EzbjFkVUpRbkVIMV83U0FFdElqaTNkdnpKTl9OZXE2WnZNb1hfNWxwWTdCbUxTS1ZBcmtHS0dVMUw5U0ZwUUpQZklaSkp3VVNOdHRCV3NjZGp6UENlUklwekxWRFhQUFhIaFRiVm56djI1QTZQbjU3UU0=)# <-- Put your App Store Connect Issuer Id here
+        APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(Z0FBQUFBQmd2WjZBa21UR1RKbGY4VkxpeXVRRHlncnBVQzVYZmo4UjdrQUJZZVRsWWVEMWs2VkJONEJIVS1WWWZrSUtlZHhjamp1S0pFSmNmT1pwdzRQNjg1eEZLTGY0LUE9PQ==) # <-- Put your App Store Connect Key Identifier here
+        APP_STORE_CONNECT_PRIVATE_KEY: Encrypted(Z0FBQUFBQmd2WjZjTldwbW8zR3RBbW5rSG9pckdCYzJ3MEktT1dHa0ZzQ3k3bkFLcGZtT2xJMlZKa3R4U2tPNWVnUjBmRG1BNG43ZUZUWG5tSnpNZG1HMElzdzlNZ1N4VGNiQlo2VExNMTBKLTkwUkd2enJzZWNjVVFTdWtBQTlIQ01UOWpxTUhEcmtqVjZVTzFRc0RpTzhFeXhYZUVIT0NnSkVwZ3dDeVR1d0tQTmNHUEI5QzJCZmthWTdxVjBQaHNhUm1sTjhlYTlqMldiUFMtdGxOTkFOOHRhZWI3bzExeFdSb2R2RV9OWGVOM1J1dUVPSGg0T3lSNE9vOVdXMFl3QUxFbzdxVVl2ZmJicjVaOS0zYzZ2bXdXcnM3WjlmTWgwSXNVQzNkQnk2c2VxZWtYeGNKbUxYVzkySjZiWmlmLU5xYWNITVBKQUVlX05yNHU2SUJLOExaUjQ3WUdWZkV5VWVqY3NldmR5eVlWa0hvV2ZoVWE3ZkduUmhLdDNQbG1lLXlVTlhTcjNSMVVOZF93WGlMaHZqNWFIVFZ5MWh6VDEwMzNndHdDNHM1NHg1NnVBVWI0TT0=) # <-- Put your App Store Connect Private Key here
+        CERTIFICATE_PRIVATE_KEY: Encrypted(Z0FBQUFBQmd2WjdLV1FPZnFvMmRGVktWc3hsR3BNUWtraTRSd2V3aUtYeEdQaXpsSnExVlQyVXl3TGZrNUxoZDJNRDBOMUc0UlhBcGJwN2FRNHFPX09VR2ZhYllHY0RiR2dGQXJ1TXE4OUpSN0FXbWRscHZuNjNSTHhHVU9xU1ZTaUN0Tmhta2x3TGR6amM1ZXBhU1ZHTk12cWMtVDdhZjlGX0M5QnNUTk1PRkJTcVBJNGZERnRCRGJsRVJKYktQdkQybC1jOHNOeFo1VHdiZ3BORVV1UUc5WnZyNU5HMHc2TGpWVUFRWnA0STF1Q295Tk5NNlFPS2pzakZ6Q1ZNc01ldDRnNWYzSnJrMEZvLWExLUFZNzc3VjhJTjJ4ZDJqQ01ISlhEb1U5bzc2eVhDTE1ObHRLVkhDWjdRVlZPYno1MG1lQ0VVNEJndU1TRHpKM1NTRmhabnVQSkJZYVZkTkRHdWs5eXpVOVNud21ZMHZSTWFhLVZEZ0pta2ZjUE9NX3U1d0dZOVJ2SmVZUjJLTkhRUjdFQzlaZVc4VjE5RHlRSzd3NldNVHp4bHdjWXl1RG41SElfOE4wTmtGVXJwaHhYNW9Xak1MTWFOSzZFemhCeWxBWWZfR0hfVUw5TzVHNElpVS11dUJEdWllSDNUakxwY1JSQWhhWGhwZmFjR2dEeUlQQXVPM285WlJHdkZ5Zi0wZWpfT2llSEs3ZkhzZGRQVzdlbG9XMUFSYXBjdGtPYzJVOFhuY21TUk9iRkJxN0FORGlZZ2pMc1Y3QlVVQnZLdnVyaUU2SGI3dUhvM2l0VVBZWUJmZzRrajVXUU54UFZ3MjhjS0w2VHJhSEU1ZkF0NVBWTDVHMjZEVVpOeF9yX1g3N2xOaVQ1M1h2cmU2cmFac1Z4MHBQTWNod1dKMV9VN19LRlU4NmVlN3JWSVNqY01yeHlSNjFDTmt3TGZzcExmUDhrMjFOSHctQTZCYnlmUFN0Snc0V05nc2ZYeVY2ZUJhV1dycFNZaWI5M0xjTkdYWDFuNzVMY0Ytc2l3eDV0Vzd6SzVnRTcyRExGWGdEM0lrTlNCS1ZlTk9lNXdhMFRvVnFsMmFDT0pZTE5sSE15NVFoSGxJQ2xYSGdNZWJzNkticUdjQTdZZzhScFZZc2t0VjJkSFRaOFNIY2tNeV9MRVZVZUhyUm05a0YzQjVta2dOWlEzODlUU3h3SXZoMmRlQTZPUnpFSDBOODdMejd3R3laV3hCazRGMTdvNzRySkJPLW1WTlRZYU1MVGhsaU13WGJ5dTAyNWk1eXF4Z1FRbnpkd2JPbUVGbHdIZXgwcEszVGdUaDB1UGw2a2c0Q1B1R1VrUXVmRDBTVmxVdWxiWFhaRWFfdXZVVmN0Y0VWN0RaY2V1Q3pUeVJIU3pnUWx1VW1iaEFsZ3VKT0FEalBLZ0MtVmladjFUUmR3d2FjUTBIRTNybmhKWUNrRk1FNVg4TTZNNzZ1Q3p0SGdXVzBhNnFwcFQyNVpsZkJEX3VWV1BxVUZvRzZCLUJtYm50VzE3Y3g3aHF2NkJHMl9JeHh1ZkV2NnFhTnNHLUdYWUgzX3NOSE5pNm1nUTloYWFvYVAzbnRsVERyNC0xUFVzd1U4eEJqVjdjczhXYkNHbG5JS2ZvQjRoZFRjdmVCdG50X1oycUg1eFpvV2VBQzRVc193ZVlXdW82SkV3RkRQUjRnek1YTDdjdkJ6cHk2MEhuSFU5YWNlTEg2b01JMFphaFUxUi1ENWJITFdfODlrMDNZeXZTZHdlaGg0c2hYUE51UGlBOTdSRTh1VzRoUl9YYXhDaGpMR0JtQkRwUXowLTZJelV1LWFBOXV1d1ZWS3NPSDZ0MjFkWTRVdmhpS3VXMVVWQm1Vem4zNEozZnlOUkluZE40MlV6enJqRXcwWFQyZnZQRlhJZ05GajdXdk12ZHoyVzFXaVdLQURRSnBkR2U0RVVTY1RUYVE5Sm1WdnpMVC1ybjBEckZuVWZReTBMNUgyT245MWxtUWJacE4tVVNLQnRjeFRxcXJHQndzSEFrV3JHam9KYlNxT1JkQWF6STRfeWFVcnhIbUNnS3FiR0ZaaVpucHhVM3NBOVVqbkMtZW9lOFExUjdlbG5JQnRHZXFVNmtMcURjemF5RjhkeURWeExnUzlBeDQ0M1VHQzF2eTJpbWYwcjFpVjF2MUtPbEJwdTdtMVdhMWZvTWVYbF8yRElPWXQ1eldGdVhNTVgzMGVJUWNwd05JQmpjTlFKOGVla01naFBSZV9JSTRxd25JZTZ0T2NHVlF0alM2dk5NYnJLTS14d3dBekUzUGxsNWNxY1c5cFNfTzJpS3VZWEFzckZreTAwODVtak9wajhHODJxeWRCN1Z0aVZNNm5MZllsTkNWZkc5OG1pejdLTUZVZkx4Ykc4b0ZpUmoxZFpseUNoY1RiVGVmRlpIQ0Fab3ZUWkFDYkc0bW1fbllyV2ZxamVhbVFlVXVLdzRWa0NNZ1ZGWG1aX0ZLRUpaNWwwZWpVODFnRjBHVXlQam1jdlBTUmlJS2xlR05sOFlMSDZsOVhneFRsZDFVRzI5MHBCVGJXR2VhOEpCZ3gtSERVdkJ5SWFhWjRDOHQyNEZHS0pYdUVQaXJMWE9xYnRQSGs5UGdXUllScVgwX0hmaHg5RGh5cnpTNHdJTmFEQzRYNEtNTzBhZjNoemRGUTh6Nnh6RU40aFduUVFNQXlwb1RCbzFaUnZoc09YRzhVOG40VmdaU3VRX3kzeW5EazlzSkZzdEZEc2lDYWdTcFR4aFJOTnIxTWJXdjI4dUtHRU1wM1E1QXhCX21NQnFJRlU2am5JbmlfNlllQ3NPLTlJVnd4ZHhEa3Nsa3Z5SVBmeE54VHRid0lnNVl0V1dVMzl6NkI2aE5xX0R0QXRMdmxTMEtKWDAyVVBLV2RlMF9Jd2tDNUJXTWptVFJLSTFoMzk4RnBnVFpUVDZ6SjcxU3JEVVFZNEZ6a1RpbWtSMkdfLVdEMlFfMmxuTExBd0xWb1I5N25HcUkwbDViRXA4N0ZjdkNFTlFpM3VNUzVOUTZLQ1RpMU9hMXNvNV9YV0RBWDR3) # <-- Put your Certificate Private key here
+        APPLE_ID: Encrypted(Z0FBQUFBQmd2Yi1IbWRhQUo5T2EzWXJmZnFhNzNsLTBFTEFwMi11dmhPQ0pSRjBzRGpoX1FSWnZLakE0M2cyVk96bDlRalphNkt4ZXpVZy1za3NYaTBCSVhCVW10WkRXamRta05mSTBiNHN1ZXBfV2hhMUN0cDg9) # <-- Put your encrypted Apple Id Email here 
+        APPLE_APP_SPECIFIC_PASSWORD: Encrypted(Z0FBQUFBQmd2Y0ZkNzJZdDJsT2p5elJWVXZ0M01tZHJJbGpqN05UREdFRUNQNlJjb1pPZ2RjcDlpZ2FmX3hDWTRzQzdndmItMnkzY3ZDbTNuV0dCU1JnM2tmWEpGN3VRZmZ0X0h5akRZTHNWdl9NRlVQa21Jd2c9) # <-- Put your encrypted App Specific Password Key here 
+        BUNDLE_ID: "com.idooh.saleskoo.pro" # <-- Put your Bundle Id here 
       xcode: 12.1
       node: 14.15.0
-      npm: 6.14.8
+      npm: 6
     cache:
       cache_paths:
         - $FCI_BUILD_DIR/node_modules
@@ -23,10 +32,44 @@ workflows:
           ionic cordova platform remove ios --nosave
           ionic cordova platform add ios --confirm --no-interactive --noresources --save  
       
+            
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
       - name: Build iOS
         script: |
-         
-          ionic cordova build ios --prod
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
+        
+          cat <<EOF > build.json
+              {
+                "ios": {
+                  "release": {
+                    "codeSignIdentity": "$identity",
+                    "developmentTeam": "$team",
+                    "packageType": "$package_type",
+                    "provisioningProfile": "$profile_uuid"
+                  }
+                }
+              }
+          EOF
+          ionic cordova build ios --release 
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.lo
+      - /tmp/xcodebuild_logs/*.log           
+    publishing:
+      # See the following link for details about email publishing - https://docs.codemagic.io/publishing-yaml/distribution/#email
+      email:
+        recipients:
+          - adeaan@gmail.com
+          
+        notify:
+          success: true     # To not receive a notification when a build succeeds
+          failure: false    # To not receive a notification when a build fails
+      
+      app_store_connect:                 
+          apple_id: $APPLE_ID
+          password: $APPLE_APP_SPECIFIC_PASSWORD       
