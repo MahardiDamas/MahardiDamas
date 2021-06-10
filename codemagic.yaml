@@ -36,13 +36,23 @@ workflows:
         script: |
           
           ionic cordova platform add ios 
+      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
+        script: |
+          keychain initialize
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE
+      - name: Add certificates to keychain
+        script: |
+          keychain add-certificates         
                   
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
       - name: Build iOS
         script: |
-          
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
           team=$(defaults read ~/export_options.plist teamID)
           profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
           profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
@@ -59,7 +69,7 @@ workflows:
                 }
               }
           EOF
-          ionic cordova build ios --release
+          ionic cordova build ios --release --buildConfig='build.json' 
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log           
