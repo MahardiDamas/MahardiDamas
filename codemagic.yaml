@@ -18,10 +18,7 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npm ci --quiet --no-optional
-          npm install --quiet --no-optional
-          security list-keychains -d user
-          npm run build
+          npm install
           npm ci
           cvm install 10.0.0
           cvm use 10.0.0
