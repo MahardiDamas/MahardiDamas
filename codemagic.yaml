@@ -24,10 +24,7 @@ workflows:
           cvm use 10.0.0
           npm install -g ionic
           ionic info   
-      - name: Devlopy
-        script: |
-          
-          ionic deploy manifest
+     
       - name: Setup iOS
         script: |
           
